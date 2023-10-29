@@ -2,7 +2,7 @@ export interface FormikErrorInterface {
     keyName: string,
     formik: any
 }
-const FormikError = ({ keyName, formik }: any) => {
+const FormikError = ({ keyName, formik }: FormikErrorInterface) => {
     return (
         <>
             {formik.touched[keyName] && formik.errors[keyName] && (

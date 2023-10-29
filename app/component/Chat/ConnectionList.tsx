@@ -4,10 +4,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import { ISelectedUser } from '@/app/Interfaces/user.interface';
+interface ConnectionListProps {
+    connectionUsers: Array<ISelectedUser>,
+    activeUsersIds: Array<String>,
+    setSelectChatUser: (value: ISelectedUser) => void,
+    selectChatUser: ISelectedUser | undefined
+}
 
-const ConnectionList = ({ connectionUsers, activeUsersIds, setSelectChatUser, selectChatUser }: any) => {
+const ConnectionList = ({ connectionUsers, activeUsersIds, setSelectChatUser, selectChatUser }: ConnectionListProps) => {
 
-    const handleSelectUser = (selectedUser: any) => {
+    const handleSelectUser = (selectedUser: ISelectedUser) => {
         setSelectChatUser(selectedUser);
     }
 
@@ -17,7 +24,7 @@ const ConnectionList = ({ connectionUsers, activeUsersIds, setSelectChatUser, se
     return (
         <div>
             <List>
-                {connectionUsers.map((item: any, index: any) => (<>
+                {connectionUsers.map((item: ISelectedUser, index: number) => (<>
                     <ListItem button key={index} onClick={() => handleSelectUser(item)}
                         style={item._id == selectChatUser?._id ? activeStyle : {}}
                     >

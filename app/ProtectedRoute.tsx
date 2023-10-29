@@ -1,12 +1,17 @@
 
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from './component/SessionProvider'
+import { ISession } from './Interfaces/user.interface';
 
-const ProtectedRoute = ({ children }:any) => {
+interface MyProps {
+    children?: ReactNode;
+ }
+
+const ProtectedRoute = ({ children }:MyProps) => {
     const router = useRouter();
-    const session:any = useSession();
+    const session = useSession();
 
    useEffect(() => {
         // Check if the user is authenticated, redirect to login if not.

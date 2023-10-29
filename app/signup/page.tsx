@@ -65,11 +65,6 @@ export default function SignUp() {
     }
   }, [error, data])
 
-  const handleUploadImage = (e: any) => {
-    const files = e.target.files;
-    console.log(files, '-e')
-  }
-
 
   return (
     <Container component="main" maxWidth="xs">

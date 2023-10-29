@@ -7,11 +7,19 @@ import { userConversationAPI } from '@/app/api/user';
 import moment from 'moment';
 import MessageBox from './MessageBox';
 import { Avatar, Divider, ListItemIcon, Paper } from '@mui/material';
+import { IMessage, ISocketMessage } from '@/app/Interfaces/conversation.interface';
+import { ISelectedUser } from '@/app/Interfaces/user.interface';
 
-const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: any) => {
+interface MessageProps {
+    sessionUser: any,
+    activeUsersIds: Array<String>,
+    selectChatUser: ISelectedUser,
+    socket: any
+}
+const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: MessageProps) => {
 
-    const scrollRef: any = useRef(null);
-    const [messsageList, setMessageList]: any = useState([]);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [messsageList, setMessageList] = useState<Array<IMessage>>([]);
     const [message, setMessage] = useState('');
 
     const { data, isLoading, error } = userConversationAPI(selectChatUser._id);
@@ -23,7 +31,7 @@ const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: an
 
 
 
-    const handleSubmitMessage = (e: any) => {
+    const handleSubmitMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (message && message !== '') {
             socket.io.emit('sendPrivateMessage', {
@@ -33,7 +41,7 @@ const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: an
             });
 
 
-            const messageBody = {
+            const messageBody: IMessage = {
                 sender: sessionUser.user_id,
                 receiver: selectChatUser._id,
                 text: message,
@@ -45,7 +53,7 @@ const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: an
     }
 
     useEffect(() => {
-        const handler = (data: any) => {
+        const handler = (data: ISocketMessage) => {
             if (selectChatUser._id == data.sender) {
                 const messageBody = {
                     sender: sessionUser.sender,
@@ -83,7 +91,7 @@ const MessageList = ({ selectChatUser, sessionUser, socket, activeUsersIds }: an
                     </List>
                     <Paper style={{ overflow: 'auto' }}>
                         <List style={{ minHeight: 400, maxHeight: 400 }}>
-                            {messsageList.map((item: any, index: number) => (<>
+                            {messsageList.map((item: IMessage, index: number) => (<>
                                 {item.sender == sessionUser.user_id ? <>
                                     <ListItem key={index}>
                                         <Grid container>

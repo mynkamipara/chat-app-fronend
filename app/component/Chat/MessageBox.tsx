@@ -3,7 +3,13 @@ import Grid from '@mui/material/Grid';
 import { Button, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-const MessageBox = ({ handleSubmitMessage, setMessage, message }: any) => {
+interface MessageBoxProps {
+    handleSubmitMessage: any
+    setMessage: (value: string) => void,
+    message: string
+}
+
+const MessageBox = ({ handleSubmitMessage, setMessage, message }: MessageBoxProps) => {
 
     return (
         <div>

@@ -5,7 +5,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 
-const SessionUser = ({ user }: any) => {
+interface SessionUserProps {
+    user:any
+}
+const SessionUser = ({ user }: SessionUserProps) => {
     return (
         <div>
             <List>

@@ -4,6 +4,11 @@ import { ApiClient } from './api/api-client';
 import { ApiProvider } from './component/api-provider';
 import { ToastContainer } from 'react-toastify';
 import Header from './component/Header';
+import { ReactNode } from 'react';
+
+interface Props {
+    children: ReactNode;
+}
 
 const queryClient = new QueryClient();
 
@@ -14,7 +19,7 @@ const apiClient = new ApiClient({
 })
 
 
-export function Providers({children}:any){
+export function Providers({children}:Props){
     return (
         <QueryClientProvider client={queryClient}>
         <ToastContainer />

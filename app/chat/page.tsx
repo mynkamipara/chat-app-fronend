@@ -13,15 +13,16 @@ import MessageList from '../component/Chat/MessageList';
 import ProtectedRoute from '../ProtectedRoute';
 import { useSession } from '../component/SessionProvider';
 import { userConnectionAPI } from '../api/user';
+import { ISelectedUser } from '../Interfaces/user.interface';
 
 const Chat = () => {
     const session: any = useSession();
 
-    const socket: any = useRef();
+    const socket:any = useRef();
 
-    const [connectionUsers, setConnectionUsers] = useState([]);
-    const [selectChatUser, setSelectChatUser] = useState();
-    const [activeUsersIds, setActiveUsersIds] = useState([]);
+    const [connectionUsers, setConnectionUsers] = useState<Array<ISelectedUser>>([]);
+    const [selectChatUser, setSelectChatUser] = useState<ISelectedUser | undefined>();
+    const [activeUsersIds, setActiveUsersIds] = useState<Array<String>>([]);
 
     const [search, setSearch] = useState('');
 
@@ -44,15 +45,15 @@ const Chat = () => {
                 });
                 socket.io = socketConnection;
                 socket.io.emit('chatRoomAddUser', session.user_id);
-                socket.io.on('chatRoomGetUsers', (users: any) => {
-                    const AllActiveUsersIds = users.map((u: any) => u[0]);
+                socket.io.on('chatRoomGetUsers', (users: Array<Array<String>>) => {
+                    const AllActiveUsersIds = users.map((u: Array<String>) => u[0]);
                     setActiveUsersIds(AllActiveUsersIds);
                 })
             }
         }
     }, [session])
 
-    const handleSeach = (e:any) => {
+    const handleSeach = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setSearch(e.target.value);
         refetch();

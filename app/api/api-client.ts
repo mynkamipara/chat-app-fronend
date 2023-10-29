@@ -1,4 +1,5 @@
 import axios, { AxiosHeaders, AxiosInstance } from 'axios';
+import { ILoginParams, ISignupParams } from '../Interfaces/user.interface';
 
 export interface ApiClientOption {
     baseUrl: string;
@@ -47,12 +48,12 @@ export class ApiClient {
     private baseUrl: string;
     private http: AxiosInstance;
 
-    async userLogin(data: any) {
+    async userLogin(data: ILoginParams) {
         const res = await this.http.post('/user/login', data);
         return res.data;
     }
 
-    async userSignup(data: any) {
+    async userSignup(data: ISignupParams) {
         const res = await this.http.post('/user/signup', data);
         return res.data;
     }

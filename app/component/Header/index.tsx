@@ -39,7 +39,7 @@ function ResponsiveAppBar() {
 
   const router = useRouter()
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [userInfo, setUserInfo]: any = useState(null);
+  const [userInfo, setUserInfo] = useState<any>(null);
 
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
